@@ -16,6 +16,7 @@
     $quote->read_single();
 
     // Create array
+    if ($quote->quote) {
     $quote_arr = array(
         'id' => $quote->id,
         'quote' => $quote->quote,
@@ -23,7 +24,12 @@
         'author' => $quote->author,
         //'category_id' => $quote->category_id,
         'category' => $quote->category
-    );
+    );} else {
+        // No Quote
+        echo json_encode(
+            array('message:' => 'quote_id Not Found')
+        );
+    }
 
     // Make JSON
     print_r(json_encode($quote_arr));
