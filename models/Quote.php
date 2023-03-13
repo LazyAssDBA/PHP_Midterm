@@ -17,6 +17,17 @@
 
         // Get Quotes
         public function read() {
+            if (isset($_GET['authorId'])) {
+                $authorId = filter_input(INPUT_GET, 'authorId', FILTER_SANITIZE_NUMBER_INT);
+                $whereAuthorId = ' AND author_id = :authorId';
+            } else { $whereAuthorId = ''; }
+
+            if (isset($_GET['categoryId'])) {
+                $categoryId = filter_input(INPUT_GET, 'categoryId', FILTER_SANITIZE_NUMBER_INT);
+                $whereCategoryId = ' AND category_id = :categoryId';
+            } else { $whereCategoryId = ''; }
+            
+
             // Create Query
             $query = 'SELECT
                 q.id, 
@@ -31,11 +42,18 @@
                 authors a ON q.author_id = a.id
             JOIN 
                 categories c ON q.category_id = c.id
-            ORDER BY 
-                q.id ASC';
+            WHERE 1 = 1';
+            
+        
+            $orderBy = ' ORDER BY q.id ASC';
+            $query = $query . $whereAuthorId . $whereCategoryId . $orderBy;
 
             // Prepare statement
             $stmt = $this->conn->prepare($query);
+
+            // Bind params
+            if (isset($_GET['authorId'])) { $stmt->bindParam(':authorId', $authorId); }
+            if (isset($_GET['categoryId'])) { $stmt->bindParam(':categoryId', $categoryId); }
 
             // Execute query
             $stmt->execute();
@@ -60,13 +78,13 @@
             JOIN 
                 categories c ON q.category_id = c.id
             WHERE
-                q.id = ?';
+                q.id = :id';
                     
             // Prepare statement
             $stmt = $this->conn->prepare($query);
         
             // Bind ID
-            $stmt->bindParam(1, $this->id);
+            $stmt->bindParam(':id', $this->id);
         
             // Execute query
             $stmt->execute();

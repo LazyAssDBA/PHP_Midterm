@@ -9,6 +9,9 @@
     // Instantiate quote object
     $quote = new Quote($db);
 
+    //explore using: $authorId = $_GET[authorId] ?? 'some value';
+    //explore using: $authorId = filter_input(INPUT_GET, 'authorId', FILTER_SANITIZE_NUMBER_INT);
+
     // Quote read query
     $result = $quote->read();
     // Get row count
@@ -26,9 +29,9 @@
             $quote_item = array(
                 'id' => $id,
                 'quote' => $quote,
-                'author_id' => $author_id,
+                //'author_id' => $author_id,
                 'author' => $author,
-                'category_id' => $category_id,
+                //'category_id' => $category_id,
                 'category' => $category
             );
 
