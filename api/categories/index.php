@@ -11,6 +11,19 @@
         exit();
     }
 
+    // I pulled this code out of the categories sibling .php files and consolidated it here
+    //---------------------------------------------------------------------------------
+    include_once '../../config/Database.php';
+    include_once '../../models/Category.php';
+
+    // Instantiate dB & connect
+    $database = new Database();
+    $db = $database->connect();
+
+    // Instantiate category object
+    $category = new Category($db);
+    //---------------------------------------------------------------------------------
+
     // Depending upon the request method, include the appropriate php file
     switch ($method) {
         case 'GET' : isset($_GET['id']) ? include_once './read_single.php' : include_once './read.php'; break;
