@@ -11,6 +11,22 @@
         exit();
     }
 
+    // I pulled this code out of the quotes sibling .php files and consolidated it here
+    //---------------------------------------------------------------------------------
+    include_once '../../config/Database.php';
+    include_once '../../models/Quote.php';
+
+    // Instantiate dB & connect
+    $database = new Database();
+    $db = $database->connect();
+
+    // Instantiate quote object
+    $quote = new Quote($db);
+
+    // Get raw posted data
+    $data = json_decode(file_get_contents("php://input"));
+    //---------------------------------------------------------------------------------
+
     // Depending upon the request method, include the appropriate php file
     switch ($method) {
         case 'GET' : isset($_GET['id']) ? include_once './read_single.php' : include_once './read.php'; break;
