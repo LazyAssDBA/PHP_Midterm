@@ -22,6 +22,9 @@
 
     // Instantiate category object
     $category = new Category($db);
+
+    // Get raw posted data
+    $data = json_decode(file_get_contents("php://input"));
     //---------------------------------------------------------------------------------
 
     // Depending upon the request method, include the appropriate php file
