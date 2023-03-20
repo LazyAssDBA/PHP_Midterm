@@ -8,7 +8,7 @@
     if($num > 0) {
         // Author array
         $author_arr = array();
-        $author_arr['data'] = array();
+        //$author_arr['data'] = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
@@ -18,8 +18,8 @@
                 'author' => $author
             );
 
-            // Push to "data"
-            array_push($author_arr['data'], $author_item);
+            // Push to array
+            array_push($author_arr, $author_item);
         }
 
         // Turn to JSON & output
