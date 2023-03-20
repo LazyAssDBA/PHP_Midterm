@@ -22,5 +22,5 @@
     }
 
     // Make JSON
-    print_r(json_encode($quote_arr));
+    json_encode($quote_arr);
 ?>
