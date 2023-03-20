@@ -12,5 +12,5 @@
     );
 
     // Make JSON
-    json_encode($category_arr);
+    echo json_encode($category_arr);
 ?>
