@@ -38,7 +38,11 @@
     }
 
     // Handle author_id and/or categor_id being passed in
-    if(isset($_GET['author_id']))  { $author_id   = $_GET['author_id']; }
+    if(isset($_GET['author_id'])) { 
+        $author_id = $_GET['author_id'];
+    } else {
+        echo json_encode(array('message' => 'author_id Not Found'));
+    }
     if(isset($_GET['category_id'])){ $category_id = $_GET['category_id']; }
 
     // Depending upon the request method, include the appropriate php file
