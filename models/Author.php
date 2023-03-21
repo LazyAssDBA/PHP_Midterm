@@ -50,13 +50,26 @@
             // Bind ID
             $stmt->bindParam(1, $this->id);
         
-            // Execute query
-            $stmt->execute();
+            try {
+                // Execute query
+                $stmt->execute();
         
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                if($row) {
+                    // Set properties
+                    $this->author = $row['author'];
+                    $this->id = $row['id'];
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch(PDOException $e) {
+                echo json_encode(array('mesage' => $e->getMessage()));
+            }
+            
         
-            // Set properties
-            $this->author = $row['author'];
+            
         }
 
 
