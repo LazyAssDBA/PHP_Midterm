@@ -27,19 +27,19 @@
 
         // Create quote
         if($quote->create()){
+            // Create JSON array for output to user
+            $quote_arr = array (
+                'id' => $db->lastInsertId(),
+                'quote' => $quote->quote, 
+                'author_id' => $quote->author_id,
+                'category_id' => $quote->category_id
+            );
+            echo json_encode($quote_arr);
         } else {
             echo json_encode(array('message' => 'No Quotes Found'));
         }
 
-        // Create JSON array for output to user
-        $quote_arr = array (
-            'id' => $db->lastInsertId(),
-            'quote' => $quote->quote, 
-            'author_id' => $quote->author_id,
-            'category_id' => $quote->category_id
-        );
-
-        echo json_encode($quote_arr);
+        
     }
 }
 ?>
