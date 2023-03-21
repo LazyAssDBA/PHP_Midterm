@@ -93,9 +93,9 @@
         
             // Set properties
             $this->quote = $row['quote'];
-            $this->author_id = $row['author_id'];
+            //$this->author_id = $row['author_id'];
             $this->author = $row['author'];
-            $this->category_id = $row['category_id'];
+            //$this->category_id = $row['category_id'];
             $this->category = $row['category'];
         }
 
