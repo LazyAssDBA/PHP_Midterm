@@ -10,7 +10,7 @@
         $category->category = $data->category;
 
         // Update category
-        $category->update()
+        $category->update();
 
         // Create JSON array for output to user
         $category_arr = array('id' => $category->id, 'category' => $category->category);
