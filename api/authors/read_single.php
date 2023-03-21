@@ -1,8 +1,4 @@
 <?php
-    // ** Can probably move this to index.php **
-    // Get id from URL
-    $author->id = isset($_GET['id']) ? $_GET['id'] : die();
-
     // Get author
     $author->read_single();
 

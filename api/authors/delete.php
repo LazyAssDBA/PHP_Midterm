@@ -1,15 +1,21 @@
 <?php
     // Set ID to update
-    $author->id = $data->id;
+    //$author->id = $data->id;
 
     // Delete author
-    if($author->delete()) {
-        echo json_encode(
-            array('message' => 'Author Deleted')
-        );
-    } else {
-        echo json_encode(
-            array('message' => 'Author Not Deleted')
-        );
-    }
+    $author->delete();
+    //if($author->delete()) {
+    //    echo json_encode(
+    //        array('message' => 'Author Deleted')
+    //    );
+    //} else {
+    //    echo json_encode(
+    //        array('message' => 'Author Not Deleted')
+    //    );
+    //}
+
+    // Create a JSON array to inform which user was deleted
+    $author_arr = array('id' => $author->id);
+
+    echo json_encode($author_arr);
 ?>
