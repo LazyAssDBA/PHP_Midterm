@@ -88,18 +88,28 @@
             // Bind ID
             $stmt->bindParam(':id', $this->id);
         
-            // ** Might want to add a try catch block here **
-            // Execute query
-            $stmt->execute();
-        
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-            // Set properties
-            $this->quote = $row['quote'];
-            //$this->author_id = $row['author_id'];
-            $this->author = $row['author'];
-            //$this->category_id = $row['category_id'];
-            $this->category = $row['category'];
+            try {
+                // Execute query
+                $stmt->execute();
+            
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                if($row) {
+                    // Set properties
+                    $this->quote = $row['quote'];
+                    //$this->author_id = $row['author_id'];
+                    $this->author = $row['author'];
+                    //$this->category_id = $row['category_id'];
+                    $this->category = $row['category'];
+                    $this->id = $row['id'];
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch(PDOException $e) {
+                echo json_encode(array('message' => $e->getMessage()));
+            }
+            
         }
 
 
