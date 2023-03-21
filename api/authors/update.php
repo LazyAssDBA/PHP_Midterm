@@ -10,7 +10,7 @@
         $author->author = $data->author;
 
         // Update author
-        $author->update()
+        $author->update();
 
         // Create JSON array for output to user
         $author_arr = array('id' => $author->id, 'author' => $author->author);
