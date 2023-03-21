@@ -41,9 +41,13 @@
     if(isset($_GET['author_id'])) { 
         $author_id = $_GET['author_id'];
     } else {
-        echo json_encode(array('message' => 'author_id Not Found'));
+        //echo json_encode(array('message' => 'author_id Not Found'));
     }
-    if(isset($_GET['category_id'])){ $category_id = $_GET['category_id']; }
+    if(isset($_GET['category_id'])) {
+        $category_id = $_GET['category_id']; 
+    } else {
+        //echo json_encode(array('message' => 'category_id Not Found'));
+    }
 
     // Depending upon the request method, include the appropriate php file
     switch ($method) {
