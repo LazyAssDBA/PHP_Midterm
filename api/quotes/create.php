@@ -7,8 +7,8 @@
         echo json_encode(array('message' => 'Missing Required Parameters'));
 } else {
     // Include author and category Models
-    include_once '../../Models/Author.php';
-    include_once '../../Models/Category.php';
+    include_once '../../models/Author.php';
+    include_once '../../models/Category.php';
 
     // Instantiate author and category objects
     $author = new Author($db);
