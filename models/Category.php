@@ -65,9 +65,9 @@
                     return false;
                 }
             } catch(PDOexception $d) {
-                echo json_encode(array('message' => $e->getMessage()))
+                echo json_encode(array('message' => $e->getMessage()));
             }
-
+        }
 
         // Create a Category
         public function create() {
