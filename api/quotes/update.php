@@ -1,19 +1,38 @@
 <?php
-    // Set ID to update
-    $quote->id = $data->id;
+    // Include author and category Models
+    include_once '../../models/Author.php';
+    include_once '../../models/Category.php';
 
-    $quote->quote = $data->quote;
-    $quote->author_id = $data->author_id;
-    $quote->category_id = $data->category_id;
+    // Instantiate author and category objects
+    $author = new Author($db);
+    $category = new Category($db);
 
-    // Update quote
-    if($quote->update()) {
-        echo json_encode(
-            array('message' => 'Quote Updated')
-        );
+    // Check if author and category are valid
+    if(!isValid($data->author_id, $author)) {
+        echo json_encode(array('message' => 'author_id Not Found'));
+    } elseif(!isValid($data->category_id, $category)){        
+        echo json_encode(array('message' => 'category_id Not Found'));
     } else {
-        echo json_encode(
-            array('message' => 'Quote Not Updated')
-        );
+        // Set quote to update
+        //$quote->id = $data->id;
+        $quote->quote = $data->quote;
+        $quote->author_id = $data->author_id;
+        $quote->category_id = $data->category_id;
+
+        // Update quote
+        if($quote->update()) {
+            // Create JSON array for output to user
+            $quote_arr = array (
+                'id' => $quote->id,
+                'quote' => $quote->quote, 
+                'author_id' => $quote->author_id,
+                'category_id' => $quote->category_id
+            );
+            echo json_encode($quote_arr);
+        } else {
+            echo json_encode(
+                array('message' => 'No Quotes Found')
+            );
+        }
     }
 ?>
