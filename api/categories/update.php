@@ -1,17 +1,20 @@
 <?php
     // Set ID to update
-    $category->id = $data->id;
+    //$category->id = $data->id;
 
-    $category->category = $data->category;
-
-    // Update category
-    if($category->update()) {
-        echo json_encode(
-            array('message' => 'Category Updated')
-        );
+    // Make sure all paremeters are passed in
+    if(!property_exists($data, 'id') || !property_exists($data, 'category'))  {
+        echo json_encode(array('message' => 'Missing Required Parameters'));
     } else {
-        echo json_encode(
-            array('message' => 'Category Not Updated')
-        );
+        // Set the category to update
+        $category->category = $data->category;
+
+        // Update category
+        $category->update()
+
+        // Create JSON array for output to user
+        $category_arr = array('id' => $category->id, 'category' => $category->category);
+
+        echo json_encode($category_arr);
     }
 ?>

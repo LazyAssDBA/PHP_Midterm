@@ -27,12 +27,41 @@
     $data = json_decode(file_get_contents("php://input"));
     //---------------------------------------------------------------------------------
 
+    // Use the isValid() function to determine if id passed in query string is valid
+    include_once '../../functions/isValid.php';
+    if(isset($_GET['id'])) {
+        $id =$_GET['id'];
+        $idExists = isValid($id, $category);
+    } elseif (isset($data->id)) {
+        $id = $data->id;
+        $idExists = isValid($id, $category);
+    }
+
     // Depending upon the request method, include the appropriate php file
     switch ($method) {
-        case 'GET' : isset($_GET['id']) ? include_once './read_single.php' : include_once './read.php'; break;
         case 'POST' : include_once './create.php'; break;
-        case 'PUT' : include_once './update.php'; break;
-        case 'DELETE' : include_once './delete.php'; break;
+        case 'GET' : 
+            if(isset($id)) {
+                if($idExists) {
+                    include_once 'read_single.php';
+                } else {
+                    echo json_encode(array('message' => 'category_id Not Found'));
+                }
+            } else {
+                include_once 'read.php';
+            } break;
+        case 'PUT' : 
+            if($idExists) {
+                include_once './update.php';
+            } else {
+                echo json_encode(array('message' => 'category_id Not Found'));
+            } break;
+        case 'DELETE' : 
+            if($idExists) {
+                include_once './delete.php';
+            } else {
+                echo json_encode(array('message' => 'category_id Not Found'));
+            } break;
     }
     
 ?>
