@@ -49,7 +49,7 @@
                 if($idExists) {
                     include_once 'read_single.php';
                 } else {
-                    echo json_encode(array('message' => 'quote_id Not Found'));
+                    echo json_encode(array('message' => 'No Quotes Found'));
                 }
             } else {
                 include_once 'read.php';
@@ -58,13 +58,13 @@
             if($idExists) {
                 include_once './update.php'; 
             } else {
-                echo json_encode(array('message' => 'quote_id Not Found'));
+                echo json_encode(array('message' => 'No Quotes Found'));
             } break;
         case 'DELETE' : 
             if($idExists) {
                 include_once './delete.php'; 
             } else {
-                echo json_encode(array('message' => 'quote_id Not Found'));
+                echo json_encode(array('message' => 'No Quotes Found'));
             } break;
     }
     
