@@ -17,14 +17,16 @@
 
         // Get Quotes
         public function read() {
-            if (isset($_GET['authorId'])) {
-                $authorId = filter_input(INPUT_GET, 'authorId', FILTER_SANITIZE_NUMBER_INT);
-                $whereAuthorId = ' AND author_id = :authorId';
+            // If author_id and/or category_id are passed in to the URL query string, 
+            // I'm going to dynamically create the the SQL Query - specifically the WHERE clause
+            if (isset($_GET['author_id'])) {
+                $author_id = filter_input(INPUT_GET, 'author_id', FILTER_SANITIZE_NUMBER_INT);
+                $whereAuthorId = ' AND author_id = :author_id';
             } else { $whereAuthorId = ''; }
 
-            if (isset($_GET['categoryId'])) {
-                $categoryId = filter_input(INPUT_GET, 'categoryId', FILTER_SANITIZE_NUMBER_INT);
-                $whereCategoryId = ' AND category_id = :categoryId';
+            if (isset($_GET['category_id'])) {
+                $category_id = filter_input(INPUT_GET, 'category_id', FILTER_SANITIZE_NUMBER_INT);
+                $whereCategoryId = ' AND category_id = :category_id';
             } else { $whereCategoryId = ''; }
             
 
@@ -52,8 +54,8 @@
             $stmt = $this->conn->prepare($query);
 
             // Bind params
-            if (isset($_GET['authorId'])) { $stmt->bindParam(':authorId', $authorId); }
-            if (isset($_GET['categoryId'])) { $stmt->bindParam(':categoryId', $categoryId); }
+            if (isset($_GET['author_id'])) { $stmt->bindParam(':author_id', $author_id); }
+            if (isset($_GET['category_id'])) { $stmt->bindParam(':category_id', $category_id); }
 
             // Execute query
             $stmt->execute();
