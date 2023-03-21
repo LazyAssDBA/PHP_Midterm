@@ -88,6 +88,7 @@
             // Bind ID
             $stmt->bindParam(':id', $this->id);
         
+            // ** Might want to add a try catch block here **
             // Execute query
             $stmt->execute();
         
