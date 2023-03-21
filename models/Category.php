@@ -50,14 +50,23 @@
             // Bind ID
             $stmt->bindParam(1, $this->id);
         
-            // Execute query
-            $stmt->execute();
+            try {
+                // Execute query
+                $stmt->execute();
         
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
         
-            // Set properties
-            $this->category = $row['category'];
-        }
+                if($row) {
+                    // Set properties
+                    $this->category = $row['category'];
+                    $this->id = $row['id'];
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch(PDOexception $d) {
+                echo json_encode(array('message' => $e->getMessage()))
+            }
 
 
         // Create a Category
